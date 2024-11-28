@@ -13,5 +13,8 @@
     "js"
   ],
   "author": "Danyal Sarwar",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^3.4.1"
+  }
 }
