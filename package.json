@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "My First Backend Project",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "src/index.js"
   },
   "keywords": [
     "js",
@@ -12,5 +13,8 @@
     "js"
   ],
   "author": "Danyal Sarwar",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
 }
