@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "src/index.js"
+    "dev": " nodemon src/index.js"
   },
   "keywords": [
     "js",
@@ -13,8 +13,5 @@
     "js"
   ],
   "author": "Danyal Sarwar",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^3.1.7"
-  }
+  "license": "ISC"
 }
