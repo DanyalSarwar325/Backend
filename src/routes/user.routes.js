@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { registerUser,LOGIN,logoutUser } from "../controllers/user.controller.js"
+import { registerUser,LOGIN,logoutUser,changeCurrentPassword } from "../controllers/user.controller.js"
 import { upload } from "../middlewares/multer.middleware.js"
 import { veriftJWT } from "../middlewares/auth.middleware.js"
 
@@ -19,5 +19,6 @@ app.route("/register").post(
 
 app.route("/login").post(LOGIN)
 app.route('/logout').post(veriftJWT,logoutUser)
+app.route('/changepassword').post(changeCurrentPassword)
 
 export default app //on next page ,we can only give it our own name if it is exported default

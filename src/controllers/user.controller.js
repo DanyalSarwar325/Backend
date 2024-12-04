@@ -202,3 +202,61 @@ export const refreshAccessToken=asyncHandler(async(req,res)=>{
 
 })
 
+export const changeCurrentPassword=async(req,res)=>{
+    const {oldPassword,newPassword}=req.body;
+    console.log(req);
+    
+    const user= await User.findById(req.user?._id);
+    console.log(user);
+    
+
+   const PasswordCorrect= await user.IsPasswordCorrect(oldPassword);
+   console.log(PasswordCorrect);
+   
+
+   if(!IsPasswordCorrect){
+    throw new ApiError(400,"Password is not valid")
+   }
+   user.password=newPassword;
+
+   await user.save({validateBeforeSave:false})
+
+    return res.status(200)
+    .json(new ApiResponse( 200, {},"Password Sucessfully Changed"))
+
+}
+
+export const getCurrentUser=asyncHandler(async(req,res)=>{
+    return res.status(200).
+    json(new ApiResponse(200,req.user,"user fetched Sucessfully"))
+})
+
+export const UpdateAvatar=asyncHandler(async(req,res)=>{
+    const avatarLocalPath=req.files?.avatar[0]?.path;
+    if(!avatarLocalPath){
+        throw new ApiError(400,"Avatar is required")
+    }
+    const Avatar= await uploadOnCloudinary(avatarLocalPath);
+    if(!Avatar.url){
+        throw new ApiError(404,"Avatar is missing for cloudinary")
+    }
+    const user= await User.findByIdAndUpdate(req.user._id,{
+        avatar:Avatar.url
+    },{new:true}).select("-password ")
+    return res.status(200).json(new ApiResponse(200,user,"Avatar Updated Sucessfully"))
+})
+
+export const UpdateCoverImage=asyncHandler(async(req,res)=>{
+    const coverImageLocalPath=req.files?.avatar[0]?.path;
+    if(!coverImageLocalPath){
+        throw new ApiError(400,"coverImage is required")
+    }
+    const coverImage= await uploadOnCloudinary(coverImageLocalPath);
+    if(!coverImage.url){
+        throw new ApiError(404,"coverImage is missing for cloudinary")
+    }
+    const user= await User.findByIdAndUpdate(req.user._id,{
+        coverImage:coverImage.url
+    },{new:true}).select("-password ")
+    return res.status(200).json(new ApiResponse(200,user,"coverImage Updated Sucessfully"))
+})
