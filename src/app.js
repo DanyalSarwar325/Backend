@@ -14,6 +14,10 @@ app.use(express.json({limit:'16kb'}));
 
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
+app.use((req, res, next) => {
+    console.log("Incoming request body:", req.body); // Debugging middleware
+    next();
+});
 //Routes Decleration
 import UserRoutes from "./routes/user.routes.js"
 
